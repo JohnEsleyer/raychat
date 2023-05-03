@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../data/message.dart';
 import '../data/message_dao.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'message_widget.dart';
 
 class MessageList extends StatefulWidget {
   const MessageList({Key? key}) : super(key: key);
@@ -32,8 +34,7 @@ class MessageListState extends State<MessageList> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // TODO: Add Message DAO to _getMessageList
-            _getMessageList(),
+            _getMessageList(messageDao),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -82,14 +83,39 @@ class MessageListState extends State<MessageList> {
     }
   }
 
-  // TODO: Replace _getMessageList
-  Widget _getMessageList() {
-    return const SizedBox.shrink();
+  Widget _getMessageList(MessageDao messageDao) {
+    return Expanded(
+      child: StreamBuilder<QuerySnapshot>(
+          stream: messageDao.getMessageStream(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: LinearProgressIndicator());
+            }
+            return _buildList(context, snapshot.data!.docs);
+          }),
+    );
   }
 
-  // TODO: Add _buildList
+  Widget _buildList(BuildContext context, List<DocumentSnapshot>? snapshot) {
+    // 1
+    return ListView(
+      controller: _scrollController,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(top: 20.0),
 
-  // TODO: Add _buildListItem
+      // 2
+      children: snapshot!.map((data) => _buildListItem(context, data)).toList(),
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot snapshot) {
+    final message = Message.fromSnapshot(snapshot);
+    return MessageWidget(
+      message.text,
+      message.date,
+      message.email,
+    );
+  }
 
   bool _canSendMessage() => _messageController.text.isNotEmpty;
 

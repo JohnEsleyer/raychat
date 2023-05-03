@@ -26,7 +26,7 @@ class Message {
         'email': email,
       };
 
-  factory Message.fromShapshot(DocumentSnapshot snapshot) {
+  factory Message.fromSnapshot(DocumentSnapshot snapshot) {
     final message = Message.fromJson(snapshot.data() as Map<String, dynamic>);
     message.reference = snapshot.reference;
     return message;

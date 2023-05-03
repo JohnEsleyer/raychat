@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "251884153821",
+    "project_id": "raychat-75efc",
+    "storage_bucket": "raychat-75efc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251884153821:android:d2f8c0e12a7c03033e2434",
+        "android_client_info": {
+          "package_name": "com.raywenderlich.RayChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251884153821-dg4tkpct84naun7rtcms7lr4q4febjls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtfH0eyzPTSLNNk3xuDACzxwfI-Nh053U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251884153821-dg4tkpct84naun7rtcms7lr4q4febjls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
